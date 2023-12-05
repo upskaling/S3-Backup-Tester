@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bucket index{% endblock %}
+
+{% block main %}
+    <h1>Bucket index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bucket in buckets %}
+            <tr>
+                <td>{{ bucket.name }}</td>
+                <td>
+                    <a href="{{ path('app_bucket_show', {'id': bucket.id}) }}">show</a>
+                    <a href="{{ path('app_bucket_edit', {'id': bucket.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bucket_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bucket{% endblock %}
+
+{% block main %}
+    <h1>Bucket</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="col">Id</th>
+                <td>{{ bucket.id }}</td>
+            </tr>
+            <tr>
+                <th scope="col">Name</th>
+                <td>{{ bucket.name }}</td>
+            </tr>
+            <tr>
+                <th scope="col">Endpoint</th>
+                <td>{{ bucket.endpoint }}</td>
+            </tr>
+            <tr>
+                <th scope="col">Region</th>
+                <td>{{ bucket.region }}</td>
+            </tr>
+            <tr>
+                <th scope="col">Credentials_key</th>
+                <td>{{ bucket.credentialsKey }}</td>
+            </tr>
+            <tr>
+                <th scope="col">Credentials_secret</th>
+                <td>{{ bucket.credentialsSecret }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bucket_index') }}">back to list</a>
+
+    <a href="{{ path('app_bucket_edit', {'id': bucket.id}) }}">edit</a>
+
+    {{ include('bucket/_delete_form.html.twig') }}
+
+    <hr>
+
+    <h2>Files</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Path</th>
+                <th scope="col">Size</th>
+                <th scope="col">Last modified</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in list_contents %}
+                <tr>
+                    <td>{{ file.path }}</td>
+                    <td>{{ file.fileSize / 1000000 }} / Mo</td>
+                    <td><time datetime="{{ file.lastModified|date('c') }}">{{ file.lastModified|date('d/m/Y H:i:s') }}</time></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">No files found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}

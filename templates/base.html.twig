@@ -8,9 +8,14 @@
         {% endblock %}
 
         {% block javascripts %}
+            {{ importmap('app') }}
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                {% block main %}{% endblock %}
+            </main>
+        {% endblock %}
     </body>
 </html>

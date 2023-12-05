@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+
+{% block main %}
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<button type="submit" class="btn btn-primary">Update</button>
+{{ form_end(form) }}
+
+<a href="{{ path('app_bucket_edit', {'id': bucket.id}) }}" class="btn btn-secondary">back to list</a>
+
+{% endblock %}
