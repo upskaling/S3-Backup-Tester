@@ -43,28 +43,6 @@
     <hr>
 
     <h2>Files</h2>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Path</th>
-                <th scope="col">Size</th>
-                <th scope="col">Last modified</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for file in list_contents %}
-                <tr>
-                    <td>{{ file.path }}</td>
-                    <td>{{ file.fileSize / 1000000 }} / Mo</td>
-                    <td><time datetime="{{ file.lastModified|date('c') }}">{{ file.lastModified|date('d/m/Y H:i:s') }}</time></td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="3">No files found</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <dev hx-get="{{ path('app_info_sf', {'id': bucket.id}) }}" hx-trigger="load"></dev>
     
 {% endblock %}

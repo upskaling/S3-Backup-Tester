@@ -7,10 +7,7 @@ namespace App\Controller;
 use App\Entity\Bucket;
 use App\Form\BucketType;
 use App\Repository\BucketRepository;
-use Aws\S3\S3Client;
 use Doctrine\ORM\EntityManagerInterface;
-use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
-use League\Flysystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,29 +47,8 @@ class BucketController extends AbstractController
     #[Route('/{id}', name: 'app_bucket_show', methods: ['GET'])]
     public function show(Bucket $bucket): Response
     {
-        $options = [
-            'version' => 'latest',
-            'endpoint' => $bucket->getEndpoint(),
-            'region' => $bucket->getRegion(),
-            'credentials' => [
-                'key' => $bucket->getCredentialsKey(),
-                'secret' => $bucket->getCredentialsSecret(),
-            ],
-        ];
-        $client = new S3Client($options);
-
-        $adapter = new AwsS3V3Adapter(
-            // S3Client
-            $client,
-            // Bucket name
-            $bucket->getName()
-        );
-
-        $filesystem = new Filesystem($adapter);
-
         return $this->render('bucket/show.html.twig', [
             'bucket' => $bucket,
-            'list_contents' => $filesystem->listContents('/', true),
         ]);
     }
 
