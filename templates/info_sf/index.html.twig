@@ -9,18 +9,13 @@
   <tbody>
     {% for std in list_contents %}
     {% set file = std.content %}
-    <tr
-        {% if std.isOld %}
-            class="table-danger"
-        {% endif %}
-    >
+    <tr class="{% if std.isOld %}table-danger{% else %}table-success{% endif %}">
       <td>{{ file.path }}</td>
       <td>{{ file.fileSize / 1000000 }} / Mo</td>
       <td>
-        <time
-          datetime="{{ file.lastModified|date('c') }}"
-          >{{ file.lastModified|date('d/m/Y H:i:s') }}</time
-        >
+        <time datetime="{{ file.lastModified|date('c') }}">
+            {{ file.lastModified|date('d/m/Y H:i:s') }}
+        </time>
       </td>
     </tr>
     {% else %}

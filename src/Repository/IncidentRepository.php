@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Bucket;
 use App\Entity\Incident;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -21,6 +22,19 @@ class IncidentRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Incident::class);
+    }
+
+    public function OldIncident(Bucket $bucket, string $path): ?Incident
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.bucket = :bucket')
+            ->andWhere('i.path = :path')
+            ->setParameter('bucket', $bucket)
+            ->setParameter('path', $path)
+            ->orderBy('i.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     //    /**

@@ -44,9 +44,16 @@ class Bucket
     #[ORM\OneToMany(mappedBy: 'Bucket', targetEntity: BucketTest::class)]
     private Collection $bucketTests;
 
+    /**
+     * @var Collection<int, Incident>
+     */
+    #[ORM\OneToMany(mappedBy: 'bucket', targetEntity: Incident::class, orphanRemoval: true)]
+    private Collection $incidents;
+
     public function __construct()
     {
         $this->bucketTests = new ArrayCollection();
+        $this->incidents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -138,6 +145,36 @@ class Bucket
             // set the owning side to null (unless already changed)
             if ($bucketTest->getBucket() === $this) {
                 $bucketTest->setBucket(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Incident>
+     */
+    public function getIncidents(): Collection
+    {
+        return $this->incidents;
+    }
+
+    public function addIncident(Incident $incident): static
+    {
+        if (!$this->incidents->contains($incident)) {
+            $this->incidents->add($incident);
+            $incident->setBucket($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIncident(Incident $incident): static
+    {
+        if ($this->incidents->removeElement($incident)) {
+            // set the owning side to null (unless already changed)
+            if ($incident->getBucket() === $this) {
+                $incident->setBucket(null);
             }
         }
 
