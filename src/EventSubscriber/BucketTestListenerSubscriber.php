@@ -46,7 +46,11 @@ class BucketTestListenerSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $incident->setStatus(Incident::STATUS_UP === $incident->getStatus() ? Incident::STATUS_DOWN : Incident::STATUS_UP);
+        $incident->setStatus(
+            Incident::STATUS_UP === $incident->getStatus() ?
+                Incident::STATUS_DOWN :
+                Incident::STATUS_UP
+        );
         $incident->setMessage(
             Incident::STATUS_UP === $incident->getStatus() ?
                 'Le fichier '.$path.' et dans une plage de temps valide' :
