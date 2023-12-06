@@ -180,4 +180,16 @@ class Bucket
 
         return $this;
     }
+
+    public function getStatus(): string
+    {
+        $status = 'unknown';
+        $incidents = $this->getIncidents();
+        if ($incidents->count() > 0) {
+            $lastIncident = $incidents->last();
+            $status = $lastIncident->getStatus();
+        }
+
+        return $status;
+    }
 }

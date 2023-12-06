@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Statue</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -16,6 +17,11 @@
         {% for bucket in buckets %}
             <tr>
                 <td>{{ bucket.name }}</td>
+                <td>
+                    <span style="background-color: {{ bucket.status == 'Up' ? '#ccffcc' : '#ffcccc' }}; padding: 5px; border-radius: 5px;">        
+                        {{ bucket.status }}
+                    </span>
+                </td>
                 <td>
                     <a href="{{ path('app_bucket_show', {'id': bucket.id}) }}">show</a>
                     <a href="{{ path('app_bucket_edit', {'id': bucket.id}) }}">edit</a>
