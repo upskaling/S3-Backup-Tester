@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
+use App\Entity\Incident;
 use App\Event\BucketTestEvent;
 use App\Factory\IncidentFactory;
 use App\Repository\IncidentRepository;
@@ -27,7 +28,7 @@ class BucketTestListenerSubscriber implements EventSubscriberInterface
             $bucket,
             $path,
         );
-        $incident->setStatus($event->isOld ? 'Down' : 'Up');
+        $incident->setStatus($event->isOld ? Incident::STATUS_DOWN : Incident::STATUS_UP);
 
         $incidentOld = $this->incidentRepository->OldIncident(
             $bucket,
@@ -45,9 +46,9 @@ class BucketTestListenerSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $incident->setStatus('Up' === $incident->getStatus() ? 'Down' : 'Up');
+        $incident->setStatus(Incident::STATUS_UP === $incident->getStatus() ? Incident::STATUS_DOWN : Incident::STATUS_UP);
         $incident->setMessage(
-            'Up' === $incident->getStatus() ?
+            Incident::STATUS_UP === $incident->getStatus() ?
                 'Le fichier '.$path.' et dans une plage de temps valide' :
                 'Le fichier '.$path.' est trop vieux'
         );

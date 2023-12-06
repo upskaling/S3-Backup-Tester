@@ -11,6 +11,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: IncidentRepository::class)]
 class Incident
 {
+    public const STATUS_UP = 'Up';
+    public const STATUS_DOWN = 'Down';
+    public const STATUS = [
+        self::STATUS_UP,
+        self::STATUS_DOWN,
+    ];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -66,6 +73,9 @@ class Incident
 
     public function setStatus(string $status): static
     {
+        if (!\in_array($status, self::STATUS, true)) {
+            throw new \InvalidArgumentException('Invalid status');
+        }
         $this->status = $status;
 
         return $this;

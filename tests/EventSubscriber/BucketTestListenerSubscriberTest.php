@@ -30,7 +30,7 @@ class BucketTestListenerSubscriberTest extends TestCase
             ->method('persist')
             ->willReturnCallback(
                 function ($incident) {
-                    $this->assertSame('Down', $incident->getStatus());
+                    $this->assertSame(Incident::STATUS_DOWN, $incident->getStatus());
 
                     return $incident;
                 }
@@ -65,7 +65,7 @@ class BucketTestListenerSubscriberTest extends TestCase
             ->method('persist')
             ->willReturnCallback(
                 function ($incident) {
-                    $this->assertSame('Up', $incident->getStatus());
+                    $this->assertSame(Incident::STATUS_UP, $incident->getStatus());
 
                     return $incident;
                 }
@@ -95,7 +95,7 @@ class BucketTestListenerSubscriberTest extends TestCase
             ->willReturn(new Incident());
 
         $incidentOld = new Incident();
-        $incidentOld->setStatus('Down');
+        $incidentOld->setStatus(Incident::STATUS_DOWN);
         $incidentRepository = $this->createMock(IncidentRepository::class);
         $incidentRepository->expects($this->once())
             ->method('OldIncident')
