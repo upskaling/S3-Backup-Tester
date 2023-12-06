@@ -16,6 +16,10 @@ framework:
     php_errors:
         log: true
 
+when@dev:
+    framework:
+        web_link: false
+
 when@test:
     framework:
         test: true
