@@ -1,16 +1,17 @@
-<table class="table">
+<table>
     <thead>
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">DateTime</th>
-            <th scope="col">Message</th>
+            <th>Name</th>
+            <th>DateTime</th>
+            <th>Message</th>
         </tr>
     </thead>
     <tbody>
         {% for incident in incidents %}
             <tr>
                 <td>
-                    <span class="badge bg-{{ incident.status == 'Up' ? 'success' : 'danger' }}">
+                    <span style="background-color: {{ incident.status == 'Up' ? '#ccffcc' : '#ffcccc' }}; padding: 5px; border-radius: 5px;"
+                    >
                         {{ incident.status }}
                     </span>
                 </td>

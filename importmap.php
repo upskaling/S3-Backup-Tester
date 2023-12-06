@@ -20,17 +20,18 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
-    'bootstrap' => [
-        'version' => '5.3.2',
+    '@picocss/pico' => [
+        'version' => '1.5.10',
     ],
-    '@popperjs/core' => [
-        'version' => '2.11.8',
-    ],
-    'bootstrap/dist/css/bootstrap.min.css' => [
-        'version' => '5.3.2',
+    '@picocss/pico/css/pico.min.css' => [
+        'version' => '1.5.10',
         'type' => 'css',
     ],
     'htmx.org' => [
         'version' => '1.9.9',
+    ],
+    '@picocss/pico/css/pico.classless.min.css' => [
+        'version' => '1.5.10',
+        'type' => 'css',
     ],
 ];
