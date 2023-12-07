@@ -11,14 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Annotation\Route;
 
-class InfoSFController extends AbstractController
+class BucketInfoController extends AbstractController
 {
     public function __construct(
         public readonly BucketFilesystem $bucketFilesystem,
     ) {
     }
 
-    #[Route('/info/sf/{id}', name: 'app_info_sf')]
+    #[Route('/bucket/info/{id}', name: 'app_info_sf')]
     #[Cache(expires: '2 minutes', public: true)]
     public function index(Bucket $bucket): Response
     {
@@ -42,7 +42,7 @@ class InfoSFController extends AbstractController
             $liste[] = $std;
         }
 
-        return $this->render('info_sf/index.html.twig', [
+        return $this->render('bucket_info/index.html.twig', [
             'bucket' => $bucket,
             'list_contents' => $liste,
         ]);
