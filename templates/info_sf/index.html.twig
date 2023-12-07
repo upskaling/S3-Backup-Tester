@@ -11,7 +11,16 @@
     {% set file = std.content %}
     <tr style="background-color: {% if std.isOld %}#ffcccc{% else %}#ccffcc{% endif %}">
       <td>{{ file.path }}</td>
-      <td>{{ file.fileSize / 1000000 }} / Mo</td>
+      <td>
+        {% if file.fileSize > 1000000000 %}
+        {{ (file.fileSize / 1000000000)|round(2) }} GB
+        {% elseif file.fileSize > 1000000 %}
+        {{ (file.fileSize / 1000000)|round(2) }} MB
+        {% elseif file.fileSize > 1000 %}
+        {{ (file.fileSize / 1000)|round(2) }} KB
+        {% else %}
+        {{ file.fileSize }} octets
+        {% endif %}
       <td>
         <time datetime="{{ file.lastModified|date('c') }}">
             {{ file.lastModified|date('d/m/Y H:i:s') }}
